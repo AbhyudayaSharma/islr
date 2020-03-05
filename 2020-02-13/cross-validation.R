@@ -34,3 +34,24 @@ min(errors)
 
 # higher the K, better the accuracy
 # LOOCV is the most accurate estimate for mean squared error
+
+library(FNN)
+library(boot)
+library(MASS)
+library(ISLR)
+
+model = knn.reg(Auto$horsepower, y = Auto$acceleration, k = 1)
+plot(x = Auto$horsepower, y = Auto$acceleration)
+lines(x = Auto$horsepower, y = model$pred)
+
+predict(model, c(34))
+
+plot(x = Auto$horsepower, y = Auto$acceleration)
+model = glm(formula = acceleration ~ horsepower, data = Auto)
+predict.glm(model, newdata = data.frame(horsepower = 34))
+summary(model)
+abline(model, col = 'red')
+
+cv.glm(model, data = Auto)
+
+
